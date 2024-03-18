@@ -1,3 +1,5 @@
+/* TESTING */
+
 const path = require('path')
 
 /* Only the current directory */
