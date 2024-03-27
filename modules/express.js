@@ -16,18 +16,53 @@ app.get('/users', async (req, res) => {
     }
 })
 
+/* catching users by ID */
+
 app.get('/users/:id', async (req, res) => {
     try {
         const id = req.params.id;
 
         const user = await UserModel.findById(id)
         return res.status(200).json(user)
-        
+
     } catch (error) {
         return res.status(500).send(error.message)
     }
 })
 
+/* --------------------------------------------- */
+
+/* Editing users by ID */
+
+app.patch('/users/:id', async (req, res) => {
+    try {
+
+        const id = req.params.id
+        const user = await UserModel.findByIdAndUpdate(id, req.body, { new: true})
+
+        return res.status(200).json(user)
+    } catch (error) {
+        res.status(500).send(error.message)
+    }
+ })
+
+
+/* ------------------------------------------------ */
+
+/* Deleting users by ID */
+
+app.delete('/users/:id', async (req, res) => {
+    try {
+        const id = req.params.id
+        const user = await UserModel.findByIdAndDelete(id, req.body)
+
+        return res.status(200).json(user)
+    } catch (error) {
+        res.status(500).send(error.message)
+    }
+})
+
+/* --------------------------------------------------- */
 app.post('/users', async (req, res) => {
     try {
     const user = await UserModel.create(req.body)
